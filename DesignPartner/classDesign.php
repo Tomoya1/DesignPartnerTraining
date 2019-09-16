@@ -1,40 +1,42 @@
 <?php
 
 class Book {
-    private $books;
     private $title;
     private $pages;
-    private $author;
 
-    function setBookDetails($title, $pages, $author)
+    public function setTitle(string $title)
     {
-        $book = array($title, $pages, $author);
-        $this->books[] = $book;
-        $this->title[] = $title;
-        $this->pages[] = $pages;
-        $this->author[] = $author;
+        $this->title = $title;
     }
 
-    function getBookDetails()
+    public function setPages(int $pages)
     {
-        return $this->books;
+        $this->pages = $pages;
     }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getPages(): int 
+    {
+        return $this->pages;
+    }
+
 
 }
 
 $book = new Book();
-$book->setBookDetails('君の名は', '200ページ', '新海誠');
+$book->setTitle('吾輩は猫である');
+$book->setPages(100);
+
+echo $book->getTitle(); //「我輩は猫である」と表示される
+echo $book->getPages(); //「100」と表示される
 
 $book2 = new Book();
-$book->setBookDetails('オブジェクト指向でなぜつくるのか', '365ページ', '平澤章');
+$book2->setTitle('坊ちゃん');
+$book2->setPages(200);
 
-$book2 = new Book();
-$book->setBookDetails('Head First デザインパターン', '568ページ', 'オライリージャパン');
-
-$bookDetails = $book->getBookDetails();
-
-foreach ($bookDetails as $book){
-    echo $book[0]."\n";
-    echo $book[1]."\n";
-    echo $book[2]."\n";
-}
+echo $book2->getTitle(); //「坊ちゃん」と表示される
+echo $book2->getPages(); //「200」と表示される
