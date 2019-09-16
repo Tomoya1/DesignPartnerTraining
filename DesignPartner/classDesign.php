@@ -27,37 +27,32 @@ class Book {
 
 }
 
-function searchBooks($title, $books)
-{
-    $titleList = array_column($books, 'title');
-    $expectTitleNum = array_search($title, $titleList);
-    return $books[$expectTitleNum];
-}
-
 $books = [];
 
 $book = new Book();
 $book->setTitle('吾輩は猫である');
 $book->setPages(100);
-$books[] = ['title' => $book->getTitle(), 'pages' => $book->getPages()];
-
+$books[] = $book;
 
 $book2 = new Book();
 $book2->setTitle('坊ちゃん');
 $book2->setPages(200);
-$books[] = ['title' => $book2->getTitle(), 'pages' => $book2->getPages()];
+$books[] = $book2;
 
 $book3 = new Book();
 $book3->setTitle('それから');
 $book3->setPages(300);
-$books[] = ['title' => $book3->getTitle(), 'pages' => $book3->getPages()];
+$books[] = $book3;
 
-foreach ($books as $book)
-{
-    echo $book['title']."\n";
+// タイトルを順番に出力
+foreach ($books as $book) {
+   echo $book->getTitle()."\n";
 }
 
-// $booksの中から、 タイトルが「坊ちゃん」であるものを取り出しましょう。 多次元配列から取得する
-$bookDetails = searchBooks('坊ちゃん', $books);
-echo $bookDetails['title'];
-echo $bookDetails['pages'];
+// $booksの中から、 タイトルが「坊ちゃん」であるものを取り出しましょう。
+foreach ($books as $book) {
+    if ($book->getTitle() == "坊ちゃん") {
+        echo $book->getTitle()."\n";
+        echo $book->getPages();
+    }
+}
