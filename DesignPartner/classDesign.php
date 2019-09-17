@@ -27,16 +27,32 @@ class Book {
 
 }
 
+$books = [];
+
 $book = new Book();
 $book->setTitle('吾輩は猫である');
 $book->setPages(100);
-
-echo $book->getTitle(); //「我輩は猫である」と表示される
-echo $book->getPages(); //「100」と表示される
+$books[] = $book;
 
 $book2 = new Book();
 $book2->setTitle('坊ちゃん');
 $book2->setPages(200);
+$books[] = $book2;
 
-echo $book2->getTitle(); //「坊ちゃん」と表示される
-echo $book2->getPages(); //「200」と表示される
+$book3 = new Book();
+$book3->setTitle('それから');
+$book3->setPages(300);
+$books[] = $book3;
+
+// タイトルを順番に出力
+foreach ($books as $book) {
+   echo $book->getTitle()."\n";
+}
+
+// $booksの中から、 タイトルが「坊ちゃん」であるものを取り出しましょう。
+foreach ($books as $book) {
+    if ($book->getTitle() == "坊ちゃん") {
+        echo $book->getTitle()."\n";
+        echo $book->getPages();
+    }
+}
