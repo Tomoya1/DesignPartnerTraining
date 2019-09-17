@@ -52,9 +52,8 @@ class BookShelf extends Book
     {
         foreach ($this->books as $book) {
             if ($book->getTitle() == $title) {
-                echo $book->getTitle()."\n";
-                echo $book->getPages()."\n";
-                echo $book->getAuthor();
+
+                return $book;
             }
         }
     }
@@ -83,4 +82,4 @@ $book3->setAuthor('夏目漱石');
 $bookShelf->addBook($book3);
 
 // titleから本の情報を取得
-$bookShelf->searchBook('坊ちゃん');
+$getBook = $bookShelf->searchBook('坊ちゃん');
