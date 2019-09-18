@@ -42,10 +42,26 @@ class Book
 class BookShelf extends Book
 {
     private $books;
+    private $maxBookCount;
+
+    public function __construct()
+    {
+        $this->maxBookCount = 3;
+    }
 
     public function addBook($book)
     {
-        $this->books[] = $book;
+        try {
+
+            if (count($this->books) >= $this->maxBookCount) {
+                throw new Exception("最大値を超えています");
+            }
+
+            $this->books[] = $book;
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function searchBook($title)
