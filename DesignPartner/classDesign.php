@@ -58,6 +58,17 @@ class BookShelf extends Book
         }
     }
 
+    public function removeBook($removeBook)
+    {
+        foreach ($this->books as $key => $book) {
+            if ($book == $removeBook) {
+                unset($this->books[$key]);
+                return true;
+            } elseif ($book != $removeBook) {
+                return false;
+            }
+        }
+    }
 }
 
 $bookShelf = new BookShelf();
@@ -83,3 +94,6 @@ $bookShelf->addBook($book3);
 
 // titleから本の情報を取得
 $getBook = $bookShelf->searchBook('坊ちゃん');
+
+// 取り出したインスタンスの本を削除
+$bookShelf->removeBook($getBook);
