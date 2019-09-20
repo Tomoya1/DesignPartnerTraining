@@ -42,6 +42,7 @@ class Book
 class BookShelf extends Book
 {
     private $books;
+    private $searchBook;
 
     public function addBook($book)
     {
@@ -53,7 +54,8 @@ class BookShelf extends Book
         foreach ($this->books as $book) {
             if ($book->getTitle() == $title) {
 
-                return $book;
+                $this->searchBook = array($book);
+                return $this->searchBook;
             }
         }
     }
@@ -83,3 +85,5 @@ $bookShelf->addBook($book3);
 
 // titleから本の情報を取得
 $getBook = $bookShelf->searchBook('坊ちゃん');
+
+print_r($getBook);
