@@ -42,24 +42,22 @@ class Book
 class BookShelf extends Book
 {
     private $books;
-    private $searchBook;
 
     public function addBook($book)
     {
         $this->books[] = $book;
     }
 
-    public function searchBook($title)
+    public function searchBooks($title)
     {
+        $searchBooks = [];
         foreach ($this->books as $book) {
             if ($book->getTitle() == $title) {
-
-                $this->searchBook = array($book);
-                return $this->searchBook;
+                $searchBooks[] = $book;
             }
         }
+        return $searchBooks;
     }
-
 }
 
 $bookShelf = new BookShelf();
@@ -84,6 +82,4 @@ $book3->setAuthor('夏目漱石');
 $bookShelf->addBook($book3);
 
 // titleから本の情報を取得
-$getBook = $bookShelf->searchBook('坊ちゃん');
-
-print_r($getBook);
+$getBook = $bookShelf->searchBooks('坊ちゃん');
