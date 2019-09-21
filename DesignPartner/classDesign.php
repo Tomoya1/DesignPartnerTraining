@@ -1,8 +1,10 @@
 <?php
 
-class Book {
+class Book
+{
     private $title;
     private $pages;
+    private $author;
 
     public function setTitle(string $title)
     {
@@ -12,6 +14,11 @@ class Book {
     public function setPages(int $pages)
     {
         $this->pages = $pages;
+    }
+
+    public function setAuthor(string $author)
+    {
+        $this->author = $author;
     }
 
     public function getTitle(): string
@@ -24,35 +31,55 @@ class Book {
         return $this->pages;
     }
 
+    public function getAuthor(): string
+    {
+        return $this->author;
+    }
+
 
 }
 
-$books = [];
+class BookShelf extends Book
+{
+    private $books;
 
+    public function addBook($book)
+    {
+        $this->books[] = $book;
+    }
+
+    public function searchBooks($title)
+    {
+        $searchBooks = [];
+        foreach ($this->books as $book) {
+            if ($book->getTitle() == $title) {
+                $searchBooks[] = $book;
+            }
+        }
+        return $searchBooks;
+    }
+}
+
+$bookShelf = new BookShelf();
 $book = new Book();
 $book->setTitle('吾輩は猫である');
 $book->setPages(100);
-$books[] = $book;
+$book->setAuthor('夏目漱石');
+$bookShelf->addBook($book);
+
 
 $book2 = new Book();
 $book2->setTitle('坊ちゃん');
 $book2->setPages(200);
-$books[] = $book2;
+$book2->setAuthor('夏目漱石');
+$bookShelf->addBook($book2);
+
 
 $book3 = new Book();
 $book3->setTitle('それから');
 $book3->setPages(300);
-$books[] = $book3;
+$book3->setAuthor('夏目漱石');
+$bookShelf->addBook($book3);
 
-// タイトルを順番に出力
-foreach ($books as $book) {
-   echo $book->getTitle()."\n";
-}
-
-// $booksの中から、 タイトルが「坊ちゃん」であるものを取り出しましょう。
-foreach ($books as $book) {
-    if ($book->getTitle() == "坊ちゃん") {
-        echo $book->getTitle()."\n";
-        echo $book->getPages();
-    }
-}
+// titleから本の情報を取得
+$getBook = $bookShelf->searchBooks('坊ちゃん');
