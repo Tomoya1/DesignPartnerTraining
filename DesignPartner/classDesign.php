@@ -64,16 +64,10 @@ class BookShelf extends Book
         return $searchBooks;
     }
 
-    public function removeBook($removeBook)
+    public function removeBooks($book)
     {
-        $deleteAction = false;
-        foreach ($this->books as $key => $book) {
-            if (in_array($book, $removeBook)) {
-                unset($this->books[$key]);
-                $deleteAction = true;
-            }
-        }
-        if ($deleteAction) {
+        if ($array_num = array_search($book, $this->books, true)) {
+            unset($this->books[$array_num]);
             return true;
         } else {
             return false;
@@ -97,7 +91,7 @@ $bookShelf->addBook($book2);
 
 
 $book3 = new Book();
-$book3->setTitle('それから');
+$book3->setTitle('坊ちゃん');
 $book3->setPages(300);
 $book3->setAuthor('夏目漱石');
 $bookShelf->addBook($book3);
@@ -106,7 +100,9 @@ $bookShelf->addBook($book3);
 $getBook = $bookShelf->searchBooks('坊ちゃん');
 
 // 取り出したインスタンスの本を削除
-$bookShelf->removeBook($getBook);
+foreach ($getBook as $book) {
+    $bookShelf->removeBooks($book);
+}
 
 // 現在の配列を取得
-print_r($bookShelf->getBooks());
+//print_r($bookShelf->getBooks());
