@@ -39,7 +39,7 @@ class Book
 
 }
 
-class BookShelf extends Book
+class BookShelf
 {
     private $books;
     private $maxBookCount;
@@ -64,25 +64,29 @@ class BookShelf extends Book
         }
     }
 
-    public function searchBook($title)
+    public function getBooks()
     {
-        foreach ($this->books as $book) {
-            if ($book->getTitle() == $title) {
-
-                return $book;
-            }
-        }
+        return $this->books;
     }
 
-    public function removeBook($removeBook)
+    public function searchBooks($title)
     {
-        foreach ($this->books as $key => $book) {
-            if ($book == $removeBook) {
-                unset($this->books[$key]);
-                return true;
-            } elseif ($book != $removeBook) {
-                return false;
+        $searchBooks = [];
+        foreach ($this->books as $book) {
+            if ($book->getTitle() == $title) {
+                $searchBooks[] = $book;
             }
+        }
+        return $searchBooks;
+    }
+
+    public function removeBook($book)
+    {
+        if ($array_num = array_search($book, $this->books, true)) {
+            unset($this->books[$array_num]);
+            return true;
+        } else {
+            return false;
         }
     }
 }
@@ -103,13 +107,19 @@ $bookShelf->addBook($book2);
 
 
 $book3 = new Book();
-$book3->setTitle('それから');
+$book3->setTitle('坊ちゃん');
 $book3->setPages(300);
 $book3->setAuthor('夏目漱石');
 $bookShelf->addBook($book3);
 
 // titleから本の情報を取得
-$getBook = $bookShelf->searchBook('坊ちゃん');
+$getBook = $bookShelf->searchBooks('坊ちゃん');
 
 // 取り出したインスタンスの本を削除
-$bookShelf->removeBook($getBook);
+foreach ($getBook as $book) {
+    $bookShelf->removeBook($book);
+}
+
+// 現在の配列を取得
+print_r($bookShelf->getBooks());
+
