@@ -64,7 +64,7 @@ class BookShelf extends Book
         return $searchBooks;
     }
 
-    public function removeBooks($book)
+    public function removeBook($book)
     {
         if ($array_num = array_search($book, $this->books, true)) {
             unset($this->books[$array_num]);
@@ -101,8 +101,8 @@ $getBook = $bookShelf->searchBooks('坊ちゃん');
 
 // 取り出したインスタンスの本を削除
 foreach ($getBook as $book) {
-    $bookShelf->removeBooks($book);
+    $bookShelf->removeBook($book);
 }
 
 // 現在の配列を取得
-//print_r($bookShelf->getBooks());
+print_r($bookShelf->getBooks());
