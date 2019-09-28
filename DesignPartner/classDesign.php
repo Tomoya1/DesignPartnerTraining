@@ -44,24 +44,17 @@ class BookShelf
     private $books;
     private $maxBookCount;
 
-    public function __construct()
+    public function __construct($maxNumber)
     {
-        $this->maxBookCount = 3;
+        $this->maxBookCount = $maxNumber;
     }
 
     public function addBook($book)
     {
-        try {
-
-            if (count($this->books) >= $this->maxBookCount) {
-                throw new Exception("最大値を超えています");
-            }
-
-            $this->books[] = $book;
-
-        } catch (Exception $e) {
-            echo $e->getMessage();
+        if (count($this->books) >= $this->maxBookCount) {
+            throw new Exception("最大値を超えています");
         }
+            $this->books[] = $book;
     }
 
     public function getBooks()
@@ -91,26 +84,36 @@ class BookShelf
     }
 }
 
-$bookShelf = new BookShelf();
-$book = new Book();
-$book->setTitle('吾輩は猫である');
-$book->setPages(100);
-$book->setAuthor('夏目漱石');
-$bookShelf->addBook($book);
+$maxBooks = 3;
+$bookShelf = new BookShelf($maxBooks);
+
+try {
+
+    $book = new Book();
+    $book->setTitle('吾輩は猫である');
+    $book->setPages(100);
+    $book->setAuthor('夏目漱石');
+    $bookShelf->addBook($book);
 
 
-$book2 = new Book();
-$book2->setTitle('坊ちゃん');
-$book2->setPages(200);
-$book2->setAuthor('夏目漱石');
-$bookShelf->addBook($book2);
+    $book2 = new Book();
+    $book2->setTitle('坊ちゃん');
+    $book2->setPages(200);
+    $book2->setAuthor('夏目漱石');
+    $bookShelf->addBook($book2);
 
 
-$book3 = new Book();
-$book3->setTitle('坊ちゃん');
-$book3->setPages(300);
-$book3->setAuthor('夏目漱石');
-$bookShelf->addBook($book3);
+    $book3 = new Book();
+    $book3->setTitle('坊ちゃん');
+    $book3->setPages(300);
+    $book3->setAuthor('夏目漱石');
+    $bookShelf->addBook($book3);
+
+    $book4 = new Book();
+    $book4->setTitle('こころ');
+    $book4->setPages(400);
+    $book4->setAuthor('夏目漱石');
+    $bookShelf->addBook($book4);
 
 // titleから本の情報を取得
 $getBook = $bookShelf->searchBooks('坊ちゃん');
@@ -123,3 +126,7 @@ foreach ($getBook as $book) {
 // 現在の配列を取得
 print_r($bookShelf->getBooks());
 
+
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
