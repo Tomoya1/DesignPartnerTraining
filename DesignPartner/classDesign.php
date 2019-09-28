@@ -126,7 +126,6 @@ foreach ($getBook as $book) {
 // 現在の配列を取得
 print_r($bookShelf->getBooks());
 
-
 } catch (Exception $e) {
     echo $e->getMessage();
 }
