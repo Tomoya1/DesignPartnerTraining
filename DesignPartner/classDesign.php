@@ -39,7 +39,7 @@ class Book
 
 }
 
-class BookShelf extends Book
+class BookShelf
 {
     private $books;
 
@@ -91,7 +91,7 @@ $bookShelf->addBook($book2);
 
 
 $book3 = new Book();
-$book3->setTitle('坊ちゃん');
+$book3->setTitle('それでも');
 $book3->setPages(300);
 $book3->setAuthor('夏目漱石');
 $bookShelf->addBook($book3);
