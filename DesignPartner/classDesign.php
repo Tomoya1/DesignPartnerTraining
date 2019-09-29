@@ -105,3 +105,5 @@ foreach ($getBook as $book) {
 
 // 現在の配列を取得
 print_r($bookShelf->getBooks());
+
+$getBook = $bookShelf->searchBooks('坊ちゃん');
