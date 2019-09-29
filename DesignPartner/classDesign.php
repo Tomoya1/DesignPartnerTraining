@@ -39,13 +39,18 @@ class Book
 
 }
 
-class BookShelf extends Book
+class BookShelf
 {
     private $books;
 
     public function addBook($book)
     {
         $this->books[] = $book;
+    }
+
+    public function getBooks()
+    {
+        return $this->books;
     }
 
     public function searchBooks($title)
@@ -57,6 +62,15 @@ class BookShelf extends Book
             }
         }
         return $searchBooks;
+    }
+
+    public function removeBook($book)
+    {
+        $array_num = array_search($book, $this->books, true);
+        if ($array_num === false) {return false;}
+
+        unset($this->books[$array_num]);
+        return true;
     }
 }
 
@@ -76,10 +90,20 @@ $bookShelf->addBook($book2);
 
 
 $book3 = new Book();
-$book3->setTitle('それから');
+$book3->setTitle('それでも');
 $book3->setPages(300);
 $book3->setAuthor('夏目漱石');
 $bookShelf->addBook($book3);
 
 // titleから本の情報を取得
+$getBook = $bookShelf->searchBooks('吾輩は猫である');
+
+// 取り出したインスタンスの本を削除
+foreach ($getBook as $book) {
+    $bookShelf->removeBook($book);
+}
+
+// 現在の配列を取得
+print_r($bookShelf->getBooks());
+
 $getBook = $bookShelf->searchBooks('坊ちゃん');
