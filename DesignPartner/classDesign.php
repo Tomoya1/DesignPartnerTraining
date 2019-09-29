@@ -66,12 +66,11 @@ class BookShelf
 
     public function removeBook($book)
     {
-        if ($array_num = array_search($book, $this->books, true)) {
-            unset($this->books[$array_num]);
-            return true;
-        } else {
-            return false;
-        }
+        $array_num = array_search($book, $this->books, true);
+        if ($array_num === false) {return false;}
+
+        unset($this->books[$array_num]);
+        return true;
     }
 }
 
@@ -97,7 +96,7 @@ $book3->setAuthor('夏目漱石');
 $bookShelf->addBook($book3);
 
 // titleから本の情報を取得
-$getBook = $bookShelf->searchBooks('坊ちゃん');
+$getBook = $bookShelf->searchBooks('吾輩は猫である');
 
 // 取り出したインスタンスの本を削除
 foreach ($getBook as $book) {
