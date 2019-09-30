@@ -42,15 +42,13 @@ class VendingMachine
 
     public function buy($productName, $cash)
     {
-        foreach ($this->items as $item) {
+        foreach ($this->items as $key => $item) {
             if ($item->getProductName() === $productName) {
                 if ($item->getPrice() > $cash) {
-                    throw new Exception("cashが価格を下回っています
-                    ");
+                    throw new Exception("cashが価格を下回っています");
                 }
                 // 購入した商品は販売機から削除する
-                $array_num = array_search($item, $this->items, true);
-                unset($this->items[$array_num]);
+                unset($this->items[$key]);
                 return $item;
             }
         }
@@ -86,6 +84,8 @@ try {
 
     // 商品の購入
     $vendingMachine->buy('なっちゃん', 150);
+
+    print_r($vendingMachine->getItem());
 
 } catch (Exception $e) {
     echo $e->getMessage();
