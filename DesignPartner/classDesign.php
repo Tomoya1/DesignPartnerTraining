@@ -62,6 +62,11 @@ class BookShelf
         return $this->books;
     }
 
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
     public function searchBooks($title)
     {
         $searchBooks = [];
@@ -75,12 +80,11 @@ class BookShelf
 
     public function removeBook($book)
     {
-        if ($array_num = array_search($book, $this->books, true)) {
-            unset($this->books[$array_num]);
-            return true;
-        } else {
-            return false;
-        }
+        $array_num = array_search($book, $this->books, true);
+        if ($array_num === false) {return false;}
+
+        unset($this->books[$array_num]);
+        return true;
     }
 }
 
@@ -115,16 +119,33 @@ try {
     $book4->setAuthor('夏目漱石');
     $bookShelf->addBook($book4);
 
-// titleから本の情報を取得
-$getBook = $bookShelf->searchBooks('坊ちゃん');
+    $book3 = new Book();
+    $book3->setTitle('それでも');
+    $book3->setPages(300);
+    $book3->setAuthor('夏目漱石');
+    $bookShelf->addBook($book3);
 
-// 取り出したインスタンスの本を削除
-foreach ($getBook as $book) {
-    $bookShelf->removeBook($book);
-}
 
-// 現在の配列を取得
-print_r($bookShelf->getBooks());
+    // titleから本の情報を取得
+    $getBook = $bookShelf->searchBooks('吾輩は猫である');
+
+    // 取り出したインスタンスの本を削除
+    foreach ($getBook as $book) {
+        $bookShelf->removeBook($book);
+    }
+
+    // 現在の配列を取得
+    print_r($bookShelf->getBooks());
+
+    $getBook = $bookShelf->searchBooks('坊ちゃん');
+
+    // 取り出したインスタンスの本を削除
+    foreach ($getBook as $book) {
+        $bookShelf->removeBook($book);
+    }
+
+    // 現在の配列を取得
+    print_r($bookShelf->getBooks());
 
 } catch (Exception $e) {
     echo $e->getMessage();
