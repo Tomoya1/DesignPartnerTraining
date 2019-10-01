@@ -35,7 +35,7 @@ class VendingMachine
         $this->items[] = $item;
     }
 
-    public function getItem()
+    public function getItems()
     {
         return $this->items;
     }
@@ -85,7 +85,7 @@ try {
     // 商品の購入
     $vendingMachine->buy('なっちゃん', 150);
 
-    print_r($vendingMachine->getItem());
+    print_r($vendingMachine->getItems());
 
 } catch (Exception $e) {
     echo $e->getMessage();
