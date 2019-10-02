@@ -31,6 +31,21 @@ class JsonOutputter
     }
 }
 
+class CountOutputter
+{
+    private $string;
+
+    public function __construct($text)
+    {
+        $this->string = $text;
+    }
+
+    public function display()
+    {
+        return mb_strlen($this->string);
+    }
+}
+
 function process($outputter, $text)
 {
     echo $text ."\n";
@@ -40,6 +55,8 @@ function process($outputter, $text)
 
 $tagOutputter = new TagOutputter("テスト");
 $jsonOuteputter = new JsonOutputter("筋トレ");
+$countOutputter = new CountOutputter("チェストプレス");
 
-process($tagOutputter, 'テスト');
-process($jsonOuteputter, '筋トレ');
+process($tagOutputter, "テスト");
+process($jsonOuteputter, "筋トレ");
+process($countOutputter, "チェストプレス");
