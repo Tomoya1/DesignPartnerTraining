@@ -42,6 +42,7 @@ class Book
 class BookShelf
 {
     private $books;
+    private $test;
     private $maxBookCount;
 
     public function __construct($maxNumber)
@@ -57,7 +58,7 @@ class BookShelf
         $this->books[] = $book;
     }
 
-    public function getBook()
+    public function getBooks()
     {
         return $this->books;
     }
@@ -87,13 +88,13 @@ class RentaBookShelf extends BookShelf
 {
     private $rentalBook;
 
-    public function __construct()
+    public function rentBook($rentalBook)
     {
-    }
-
-    public function rentBook($book)
-    {
-        $this->rentalBook[] = $book;
+        $bookShelf = $this->getBooks();
+        if (in_array($rentalBook, $bookShelf, true) === false) {
+            throw new Exception("本棚に指定の本がありません");
+        }
+        $this->rentalBook[] = $rentalBook;
     }
 
     public function returnBook($book)
@@ -112,12 +113,11 @@ class RentaBookShelf extends BookShelf
 
     public function isRented($book)
     {
-        $rented = in_array($book, $this->rentalBook);
-        return $rented;
+        return in_array($book, $this->rentalBook, true);
     }
 }
 
-$bookShelf = new BookShelf(3);
+$rentaBooks = new RentaBookShelf(3);
 
 try {
 
@@ -125,28 +125,27 @@ try {
     $book->setTitle('吾輩は猫である');
     $book->setPages(100);
     $book->setAuthor('夏目漱石');
-    $bookShelf->addBook($book);
+    $rentaBooks->addBook($book);
 
 
     $book2 = new Book();
     $book2->setTitle('坊ちゃん');
     $book2->setPages(200);
     $book2->setAuthor('夏目漱石');
-    $bookShelf->addBook($book2);
+    $rentaBooks->addBook($book2);
 
 
     $book3 = new Book();
     $book3->setTitle('こころ');
     $book3->setPages(300);
     $book3->setAuthor('夏目漱石');
-    $bookShelf->addBook($book3);
+    $rentaBooks->addBook($book3);
 
-    $rentaBooks = new RentaBookShelf();
     // 指定の本を借りる
     $rentaBooks->rentBook($book);
     $rentaBooks->rentBook($book2);
 
-    // 指定の本を返す
+//    // 指定の本を返す
     $rentaBooks->returnBook($book);
 
     // 貸し出されている本の一覧を取得する
