@@ -86,15 +86,15 @@ class BookShelf
 
 class RentaBookShelf extends BookShelf
 {
-    private $rentalBook;
+    private $rentalBooks;
 
     public function rentBook($rentalBook)
     {
-        $bookShelf = $this->getBooks();
-        if (in_array($rentalBook, $bookShelf, true) === false) {
+        $books = $this->getBooks();
+        if (in_array($rentalBook, $books, true) === false) {
             throw new Exception("本棚に指定の本がありません");
         }
-        $this->rentalBook[] = $rentalBook;
+        $this->rentalBooks[] = $rentalBook;
     }
 
     public function returnBook($book)
