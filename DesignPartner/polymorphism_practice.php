@@ -76,6 +76,27 @@ class CountOutputter
     }
 }
 
+class OutputterFactory
+{
+    public static function create($name)
+    {
+        switch ($name) {
+            case 'tag':
+                $tagOutputter = new TagOutputter("テスト");
+                return $tagOutputter;
+            case 'json':
+                $jsonOuteputter = new JsonOutputter("筋トレ");
+                return $jsonOuteputter;
+            case 'count':
+                $countOutputter = new CountOutputter("チェストプレス");
+                return $countOutputter;
+            default:
+                throw new Exception("適切なnameではありません");
+        }
+
+    }
+}
+
 function process($outputter)
 {
     echo $outputter->beforeDisplay() ."\n";
@@ -83,10 +104,6 @@ function process($outputter)
     echo $outputter->afterDisplay()."\n";
 }
 
-$tagOutputter = new TagOutputter("テスト");
-$jsonOuteputter = new JsonOutputter("筋トレ");
-$countOutputter = new CountOutputter("チェストプレス");
+$output = OutputterFactory::create('tag');
 
-process($tagOutputter);
-process($jsonOuteputter);
-process($countOutputter);
+process($output);
