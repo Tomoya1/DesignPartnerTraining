@@ -1,14 +1,7 @@
 <?php
 
-class TagOutputter
+class TagOutputter extends BasicOutputter
 {
-    private $string;
-
-    public function __construct($text)
-    {
-        $this->string = $text;
-    }
-
     public function beforeDisplay()
     {
         return "<html>". "\n" . "<body>";
@@ -21,19 +14,12 @@ class TagOutputter
 
     public function display()
     {
-        return "<p>" . $this->string . "</p>";
+        return "<p>" . $this->getString() . "</p>";
     }
 }
 
-class JsonOutputter
+class JsonOutputter extends BasicOutputter
 {
-    private $string;
-
-    public function __construct($test)
-    {
-        $this->string = $test;
-    }
-
     public function beforeDisplay()
     {
         return "{" . "\n" . "result:";
@@ -46,20 +32,13 @@ class JsonOutputter
 
     public function display()
     {
-        $arr = array('label' => $this->string);
+        $arr = array('label' => $this->getString());
         return json_encode($arr, JSON_UNESCAPED_UNICODE);
     }
 }
 
-class CountOutputter
+class CountOutputter extends BasicOutputter
 {
-    private $string;
-
-    public function __construct($text)
-    {
-        $this->string = $text;
-    }
-
     public function beforeDisplay()
     {
         return "チェストプレスの文字数は....";
@@ -72,7 +51,29 @@ class CountOutputter
 
     public function display()
     {
-        return mb_strlen($this->string);
+        return mb_strlen($this->getString());
+    }
+}
+
+class BasicOutputter
+{
+    private $string;
+
+    public function __construct($text)
+    {
+        $this->string = $text;
+    }
+
+    public function getString()
+    {
+        return $this->string;
+    }
+
+    public function output()
+    {
+        echo $this->beforeDisplay() ."\n";
+        echo $this->display()."\n";
+        echo $this->afterDisplay()."\n";
     }
 }
 
@@ -93,11 +94,8 @@ class OutputterFactory
     }
 }
 
-function process($outputter)
-{
-    echo $outputter->beforeDisplay() ."\n";
-    echo $outputter->display()."\n";
-    echo $outputter->afterDisplay()."\n";
+function process($outputter) {
+    $outputter->output();
 }
 
 $tagOutput = OutputterFactory::create('tag');
@@ -105,3 +103,5 @@ $jsonOutput = OutputterFactory::create('json');
 $countOutput = OutputterFactory::create('count');
 
 process($tagOutput);
+process($jsonOutput);
+process($countOutput);
