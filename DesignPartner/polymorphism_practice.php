@@ -82,18 +82,14 @@ class OutputterFactory
     {
         switch ($name) {
             case 'tag':
-                $tagOutputter = new TagOutputter("テスト");
-                return $tagOutputter;
+                return new TagOutputter("テスト");
             case 'json':
-                $jsonOuteputter = new JsonOutputter("筋トレ");
-                return $jsonOuteputter;
+                return new JsonOutputter("筋トレ");
             case 'count':
-                $countOutputter = new CountOutputter("チェストプレス");
-                return $countOutputter;
+                return new CountOutputter("チェストプレス");
             default:
                 throw new Exception("適切なnameではありません");
         }
-
     }
 }
 
@@ -104,6 +100,8 @@ function process($outputter)
     echo $outputter->afterDisplay()."\n";
 }
 
-$output = OutputterFactory::create('tag');
+$tagOutput = OutputterFactory::create('tag');
+$jsonOutput = OutputterFactory::create('json');
+$countOutput = OutputterFactory::create('count');
 
-process($output);
+process($tagOutput);
