@@ -23,6 +23,13 @@ class TagOutputter
     {
         return "<p>" . $this->string . "</p>";
     }
+
+    public function output()
+    {
+        echo $this->beforeDisplay() ."\n";
+        echo $this->display()."\n";
+        echo $this->afterDisplay()."\n";
+    }
 }
 
 class JsonOutputter
@@ -49,6 +56,13 @@ class JsonOutputter
         $arr = array('label' => $this->string);
         return json_encode($arr, JSON_UNESCAPED_UNICODE);
     }
+
+    public function output()
+    {
+        echo $this->beforeDisplay() ."\n";
+        echo $this->display()."\n";
+        echo $this->afterDisplay()."\n";
+    }
 }
 
 class CountOutputter
@@ -74,6 +88,13 @@ class CountOutputter
     {
         return mb_strlen($this->string);
     }
+
+    public function output()
+    {
+        echo $this->beforeDisplay() ."\n";
+        echo $this->display()."\n";
+        echo $this->afterDisplay()."\n";
+    }
 }
 
 class OutputterFactory
@@ -93,11 +114,8 @@ class OutputterFactory
     }
 }
 
-function process($outputter)
-{
-    echo $outputter->beforeDisplay() ."\n";
-    echo $outputter->display()."\n";
-    echo $outputter->afterDisplay()."\n";
+function process($outputter) {
+    $outputter->output();
 }
 
 $tagOutput = OutputterFactory::create('tag');
@@ -105,3 +123,5 @@ $jsonOutput = OutputterFactory::create('json');
 $countOutput = OutputterFactory::create('count');
 
 process($tagOutput);
+process($jsonOutput);
+process($countOutput);
