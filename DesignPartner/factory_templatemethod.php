@@ -13,7 +13,7 @@ class BasicTraining
         return "プロテインを補給します";
     }
 
-    public function training()
+    public function doTraining()
     {
         echo $this->exercise()."\n";
         echo $this->mainTraining()."\n";
@@ -21,7 +21,7 @@ class BasicTraining
     }
 }
 
-class Chest extends BasicTraining
+class ChestTraining extends BasicTraining
 {
     public function mainTraining()
     {
@@ -29,7 +29,7 @@ class Chest extends BasicTraining
     }
 }
 
-class Leg extends BasicTraining
+class LegTraining extends BasicTraining
 {
     public function mainTraining()
     {
@@ -37,7 +37,7 @@ class Leg extends BasicTraining
     }
 }
 
-class Abs extends BasicTraining
+class AbsTraining extends BasicTraining
 {
     public function mainTraining()
     {
@@ -51,11 +51,11 @@ class TrainingFactory
     {
         switch ($menu) {
             case "胸":
-                return new Chest();
+                return new ChestTraining();
             case "足":
-                return new Leg();
+                return new LegTraining();
             case "腹":
-                return new Abs();
+                return new AbsTraining();
             default:
                 throw new Exception("不適切なメニューです");
         }
@@ -64,14 +64,14 @@ class TrainingFactory
 
 try {
 
-    $chestTraining = TrainingFactory::create("胸");
-    $chestTraining->training();
+    $training = TrainingFactory::create("胸");
+    $training->doTraining();
 
-    $legTraining = TrainingFactory::create("足");
-    $legTraining->training();
+    $training = TrainingFactory::create("足");
+    $training->doTraining();
 
-    $absTraining = TrainingFactory::create("腹");
-    $absTraining->training();
+    $training = TrainingFactory::create("腹");
+    $training->doTraining();
 
 } catch (Exception $e) {
     echo $e->getMessage();
